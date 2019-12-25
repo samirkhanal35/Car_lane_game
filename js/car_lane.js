@@ -1,9 +1,17 @@
+document.body.style.backgroundColor = 'black';
 var container = document.getElementsByClassName("main_container")[0];
 var container_height = container.clientHeight;
 // console.log("height>>", container_height);
 var container_width = container.clientWidth;
 // console.log("width>>", container_width);
 // var background_images =
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    // Great success! All the File APIs are supported.
+} else {
+    alert('The File APIs are not fully supported in this browser.');
+}
+
+var high_score = 0;
 
 function car_lane_game(parentElement, container_height, container_width) {
     this.parentElement = parentElement;
@@ -20,8 +28,8 @@ function car_lane_game(parentElement, container_height, container_width) {
     this.bullets = [];
     this.bullet_available = 5;
     this.bullet_numbers = 0;
-    this.bullet_height = (this.height / 10);
-    this.bullet_width = (this.width / 10);
+    this.bullet_height = (this.height / 18);
+    this.bullet_width = (this.width / 15);
     this.bullet_left = [];
     this.bullet_shift = -10;
     this.bullet_top = [];
@@ -84,8 +92,8 @@ function car_lane_game(parentElement, container_height, container_width) {
         start_box.classList.add("start_box");
         var start_image = document.createElement('img');
         // start_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0329.gif";
-        start_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0575.gif";
-
+        //start_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0575.gif";
+        start_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0538.gif";
         start_box.appendChild(start_image);
         start_box_parent.appendChild(start_box);
         start_image.addEventListener("click", function() {
@@ -111,7 +119,7 @@ function car_lane_game(parentElement, container_height, container_width) {
 
         main_car_box.classList.add("main_car_box");
         var main_car_image = document.createElement('img');
-        main_car_image.src = "./images/main_car.png";
+        main_car_image.src = "./images/Police.png";
 
         main_car_box.appendChild(main_car_image);
         main_car_parent.appendChild(main_car_box);
@@ -180,7 +188,7 @@ function car_lane_game(parentElement, container_height, container_width) {
                     var bullet_topmargin = (that.main_car_top - (that.bullet_height));
                     bullet.style.top = bullet_topmargin + "px";
                     that.bullet_top.push(bullet_topmargin);
-                    var bullet_leftmargin = (that.main_car_left + 5);
+                    var bullet_leftmargin = (that.main_car_left + 10);
                     that.bullet_left.push(bullet_leftmargin);
                     bullet.style.left = bullet_leftmargin + "px";
 
@@ -242,7 +250,7 @@ function car_lane_game(parentElement, container_height, container_width) {
                         that.other_cars_width.splice(j, 1);
                         that.other_cars_left.splice(j, 1);
                         // that.total_score++;
-                        that.total_kills++;
+                        that.total_score++;
 
                         that.number_of_cars--;
                         // console.log("hit the car");
@@ -260,11 +268,11 @@ function car_lane_game(parentElement, container_height, container_width) {
 
         that.time_counter = that.time_counter + 50;
         if (that.time_counter % 45000 == 0) { that.bullet_available += 5; }
-        document.getElementById("score").innerHTML = "Passed:" + that.total_score;
+        document.getElementById("score").innerHTML = "Score:" + that.total_score;
         document.getElementById("time").innerHTML = Math.floor(that.time_counter / 1000) + "sec";
         document.getElementById("speed").innerHTML = that.car_speed + "KPH";
         document.getElementById("bullet_count").innerHTML = "Bullets:" + that.bullet_available;
-        document.getElementById("car_kills").innerHTML = "Destroyed:" + that.total_kills;
+        document.getElementById("car_kills").innerHTML = "High Score:" + high_score;
         that.background_movement();
         if (that.time_counter % 3000 == 0) { //|| that.time_counter % 11000 == 0
             that.car_flag++;
@@ -442,7 +450,7 @@ function car_lane_game(parentElement, container_height, container_width) {
         // start_box.style.paddingLeft = 4 + "px";
         ending_box.style.paddingBottom = 8 + "%";
         // console.log("left>>", start_box.style.paddingLeft)
-        ending_box.innerHTML = "<b>Game Over<br/>score:" + that.total_score + "<br/>Play Again</b>"; //check 
+        ending_box.innerHTML = "<b>Game Over<br/><b>score:" + that.total_score + "</b><br/>Play Again</b>"; //check 
         ending_box.classList.add("ending_box");
         var ending_image = document.createElement('img');
         ending_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0329.gif";
@@ -461,13 +469,16 @@ function car_lane_game(parentElement, container_height, container_width) {
 
     this.restart_game = function() {
         document.getElementsByClassName("ending_box")[0].remove();
+        if (high_score < this.total_score) {
+            high_score = this.total_score;
+        }
         this.total_score = 0;
 
         this.bullets = [];
         this.bullet_available = 5;
         this.bullet_numbers = 0;
-        this.bullet_height = (this.height / 10);
-        this.bullet_width = (this.width / 10);
+        this.bullet_height = (this.height / 18);
+        this.bullet_width = (this.width / 15);
         this.bullet_left = [];
         this.bullet_shift = -10;
         this.bullet_top = [];
