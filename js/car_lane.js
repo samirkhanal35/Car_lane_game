@@ -5,11 +5,9 @@ var container_height = container.clientHeight;
 var container_width = container.clientWidth;
 // console.log("width>>", container_width);
 // var background_images =
-if (window.File && window.FileReader && window.FileList && window.Blob) {
-    // Great success! All the File APIs are supported.
-} else {
-    alert('The File APIs are not fully supported in this browser.');
-}
+var left_button = document.getElementsByClassName("left_button")[0];
+var fire_button = document.getElementsByClassName("fire_button")[0];
+var right_button = document.getElementsByClassName("right_button")[0];
 
 var high_score = 0;
 
@@ -24,6 +22,9 @@ function car_lane_game(parentElement, container_height, container_width) {
     // console.log("image height>>", this.image_height);
     this.total_score = 0;
     this.event_listener = 0;
+    this.left_event_listener = 0;
+    this.fire_event_listener = 0;
+    this.right_event_listener = 0;
 
     this.bullets = [];
     this.bullet_available = 5;
@@ -114,7 +115,7 @@ function car_lane_game(parentElement, container_height, container_width) {
         this.main_car_top = (this.height - (this.height / 4.5));
         main_car_box.style.top = this.main_car_top + "px";
 
-        this.main_car_left = (this.width / 2.5);
+        this.main_car_left = (this.width / 2.4);
         main_car_box.style.left = this.main_car_left + "px";
 
         main_car_box.classList.add("main_car_box");
@@ -125,6 +126,71 @@ function car_lane_game(parentElement, container_height, container_width) {
         main_car_parent.appendChild(main_car_box);
         // that.car_position = 1;
         this.main_car = main_car_box;
+
+        left_button.addEventListener("click", this.left_event_listener = function(event) {
+            if (that.car_position == 1) {
+                that.main_car_left = (that.width / 13.50357);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 0;
+            }
+            if (that.car_position == 2) {
+                that.main_car_left = (that.width / 2.4);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 1;
+            }
+            if (that.car_position == 0) {
+                that.main_car_left = (that.width / 13.50357);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 0;
+            }
+        }, true);
+
+        right_button.addEventListener("click", this.right_event_listener = function(event) {
+            if (that.car_position == 1) {
+                that.main_car_left = (that.width / 1.3846);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 2;
+            }
+            if (that.car_position == 0) {
+                that.main_car_left = (that.width / 2.4);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 1;
+            }
+
+            if (that.car_position == 2) {
+                that.main_car_left = (that.width / 1.3846);
+                main_car_box.style.left = that.main_car_left + "px";
+                that.car_position = 2;
+            }
+        }, true);
+
+        fire_button.addEventListener("click", this.fire_event_listener = function(event) {
+            if (that.bullet_available > 0) {
+                var bullet_parent = document.getElementsByClassName("main_container")[0];
+                var bullet = document.createElement('div');
+
+                bullet.style.height = that.bullet_height + "px";
+                // console.log(this.height);
+
+                bullet.style.width = that.bullet_width + "px";
+                var bullet_topmargin = (that.main_car_top - (that.bullet_height));
+                bullet.style.top = bullet_topmargin + "px";
+                that.bullet_top.push(bullet_topmargin);
+                var bullet_leftmargin = (that.main_car_left + 10);
+                that.bullet_left.push(bullet_leftmargin);
+                bullet.style.left = bullet_leftmargin + "px";
+
+                bullet.classList.add("bullet");
+                var bullet_image = document.createElement('img');
+                bullet_image.src = "./images/bullet.png";
+                bullet.appendChild(bullet_image);
+                bullet_parent.appendChild(bullet);
+                that.bullets.push(bullet);
+                that.bullet_numbers++;
+                that.bullet_available--;
+                // console.log(that.bullets.length);
+            }
+        }, true);
 
 
 
@@ -138,7 +204,7 @@ function car_lane_game(parentElement, container_height, container_width) {
                     that.car_position = 2;
                 }
                 if (that.car_position == 0) {
-                    that.main_car_left = (that.width / 2.5);
+                    that.main_car_left = (that.width / 2.4);
                     main_car_box.style.left = that.main_car_left + "px";
                     that.car_position = 1;
                 }
@@ -161,7 +227,7 @@ function car_lane_game(parentElement, container_height, container_width) {
                     that.car_position = 0;
                 }
                 if (that.car_position == 2) {
-                    that.main_car_left = (that.width / 2.5);
+                    that.main_car_left = (that.width / 2.4);
                     main_car_box.style.left = that.main_car_left + "px";
                     that.car_position = 1;
                 }
@@ -472,6 +538,9 @@ function car_lane_game(parentElement, container_height, container_width) {
         if (high_score < this.total_score) {
             high_score = this.total_score;
         }
+        window.removeEventListener("click", this.left_event_listener, true);
+        window.removeEventListener("click", this.right_event_listener, true);
+        window.removeEventListener("click", this.fire_event_listener, true);
         this.total_score = 0;
 
         this.bullets = [];
