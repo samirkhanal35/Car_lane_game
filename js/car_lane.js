@@ -363,6 +363,9 @@ function car_lane_game(parentElement, container_height, container_width) {
                     that.main_car_top < that.other_car_position[i] + that.other_cars_height[i] &&
                     that.main_car_top + that.main_car_height > that.other_car_position[i]) {
                     window.removeEventListener("keydown", that.event_listener, true);
+                    left_button.removeEventListener("click", that.left_event_listener, true);
+                    right_button.removeEventListener("click", that.right_event_listener, true);
+                    fire_button.removeEventListener("click", that.fire_event_listener, true);
                     for (var i = 0; i < that.number_of_cars; i++) {
                         document.getElementsByClassName("other_car_box")[0].remove();
                     }
@@ -538,9 +541,14 @@ function car_lane_game(parentElement, container_height, container_width) {
         if (high_score < this.total_score) {
             high_score = this.total_score;
         }
-        window.removeEventListener("click", this.left_event_listener, true);
-        window.removeEventListener("click", this.right_event_listener, true);
-        window.removeEventListener("click", this.fire_event_listener, true);
+
+
+        // window.removeEventListener("click", this.left_event_listener, true);
+        // window.removeEventListener("click", this.right_event_listener, true);
+        // window.removeEventListener("click", this.fire_event_listener, true);
+        this.left_event_listener = 0;
+        this.fire_event_listener = 0;
+        this.right_event_listener = 0;
         this.total_score = 0;
 
         this.bullets = [];
