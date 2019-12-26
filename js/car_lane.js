@@ -5,11 +5,20 @@ var container_height = container.clientHeight;
 var container_width = container.clientWidth;
 // console.log("width>>", container_width);
 // var background_images =
+
+// var fs = require('fs');
+// var data = fs.readFileSync('score.json', 'utf8');
+// var mydata = JSON.parse(score.json);
+// alert(mydata[0].name);
+// alert(mydata[0].age);
+// Storage.setItem('score', '200');
+var myStorage = window.localStorage;
+// myStorage.setItem('high_score', '0');
 var left_button = document.getElementsByClassName("left_button")[0];
 var fire_button = document.getElementsByClassName("fire_button")[0];
 var right_button = document.getElementsByClassName("right_button")[0];
 
-var high_score = 0;
+var high_score = Number(myStorage.getItem('high_score'));
 
 function car_lane_game(parentElement, container_height, container_width) {
     this.parentElement = parentElement;
@@ -540,6 +549,7 @@ function car_lane_game(parentElement, container_height, container_width) {
         document.getElementsByClassName("ending_box")[0].remove();
         if (high_score < this.total_score) {
             high_score = this.total_score;
+            myStorage.setItem('high_score', high_score);
         }
 
 
