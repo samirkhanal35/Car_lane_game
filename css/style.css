@@ -1,7 +1,32 @@
+.main_header {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
+.header {
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+.sub_header_1 {
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+.sub_header_2 {
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    display: none;
+}
+
 .main_container {
     margin: 0 auto;
     /* margin-top: 20px; */
-    border: 3px solid blueviolet;
+    border: 1px solid white;
     border-top: none;
     height: 400px;
     width: 312px;
@@ -13,7 +38,7 @@
 .score_bar {
     margin: 0 auto;
     /* margin-top: 50px; */
-    border: 3px solid blueviolet;
+    border: 1px solid white;
     border-bottom: none;
     padding-bottom: 3px;
     /* height: 30px; */
@@ -27,7 +52,8 @@
 }
 
 .score {
-    width: 25%;
+    padding-left: 1%;
+    width: 24%;
     float: left;
 }
 
@@ -42,13 +68,14 @@
 }
 
 .speed {
+    padding-right: 1%;
     float: right;
 }
 
 .bullets_bar {
     margin: 0 auto;
     /* margin-top: 50px; */
-    border: 3px solid blueviolet;
+    border: 1px solid white;
     border-top: none;
     border-bottom: 1px solid white;
     padding-bottom: 3px;
@@ -63,11 +90,13 @@
 }
 
 .bullet_count {
+    padding-left: 1%;
     float: left;
     text-align: center;
 }
 
 .car_kills {
+    padding-right: 1%;
     float: right;
     text-align: center;
 }
@@ -86,6 +115,7 @@
     position: absolute;
     font-size: 17px;
     color: red;
+    overflow: hidden;
 }
 
 .start_box img {
@@ -179,6 +209,12 @@
 
 @media only screen and (max-width: 900px) {
     .buttons {
+        display: block;
+    }
+    .sub_header_1 {
+        display: none;
+    }
+    .sub_header_2 {
         display: block;
     }
 }

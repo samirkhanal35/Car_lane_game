@@ -89,7 +89,7 @@ function car_lane_game(parentElement, container_height, container_width) {
         // start_box.style.paddingLeft = 4 + "px";
         start_box.style.paddingBottom = 8 + "%";
         // console.log("left>>", start_box.style.paddingLeft)
-        start_box.innerHTML = "<b> Car Lane Game</b>"
+        start_box.innerHTML = "<b> Car Lane Game<br>Press to Start</b>";
         start_box.classList.add("start_box");
         var start_image = document.createElement('img');
         // start_image.src = "https://www.animatedimages.org/data/media/426/animated-button-image-0329.gif";
